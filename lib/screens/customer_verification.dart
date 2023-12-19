@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:whatsloan/widgets/black_button.dart';
+import 'package:whatsloan/screens/agreement.dart';
+import 'package:whatsloan/widgets/dropdown.dart';
+import 'package:whatsloan/widgets/card.dart';
 
 class CustomerVerification extends StatefulWidget {
   const CustomerVerification({Key? key}) : super(key: key);
@@ -8,8 +11,19 @@ class CustomerVerification extends StatefulWidget {
   @override
   State<CustomerVerification> createState() => _CustomerVerificationState();
 }
+enum DifferentLoanAmount {Yes, No}
+enum DocumentExecution {Digital}
 
 class _CustomerVerificationState extends State<CustomerVerification> {
+
+  late String district, Tehsil, Halka, Village;
+  late int Khasara;
+  late List<String> crops = ['Ragi', 'Rice','Wheat'];
+  bool content1 = false;
+  DifferentLoanAmount _differentLoanAmount = DifferentLoanAmount.Yes;
+  DocumentExecution _documenExecution = DocumentExecution.Digital ;
+  bool checkbox1 =false ;
+  bool checkbox2 = false;
 
   @override
   void initState() {
@@ -67,6 +81,54 @@ class _CustomerVerificationState extends State<CustomerVerification> {
         }
     );
   }
+
+  void _showClosingDialog(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+            contentPadding: EdgeInsets.all(20.0),
+            insetPadding: EdgeInsets.all(30.0),
+            content: Text(
+              'Thanks for Opting for Digital Document Execution, '
+                  'you will receive a SMS from NeSL on your registered mobile number to initiate e-sign. '
+                  'Please read through the document before signing it.',
+              textAlign: TextAlign.center,),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.black, padding: EdgeInsets.symmetric(horizontal: 20.0), ),
+                      onPressed: () => {
+                        Navigator.pop(context)
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            'OK',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -156,7 +218,406 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                               Text('Enter Khasra',style: TextStyle(fontWeight: FontWeight.w800,fontSize: 15.0),),
                               TextField(decoration: InputDecoration(hintText: 'Enter Khasra No', labelStyle: TextStyle(fontSize: 15.0)),),
                               SizedBox(height: 25.0,),
-                              BlackButton(buttonName: 'FETCH LAND DETAILS', onPressed: (){})
+                              BlackButton(buttonName: 'FETCH LAND DETAILS', onPressed: (){
+                                 content1 = !content1;
+                              })
+                            ],
+                          ),
+                        ),
+                        Table(
+                          border: TableBorder.all(
+                              color: Colors.black,
+                              style: BorderStyle.solid,
+                              width: 0.5),
+                          children: [
+                            TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('District'),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Ujjain'),
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                            ),
+                            TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Tehsil'),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Badnagar'),
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                            ),
+                            TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Halka'),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Bhatpachalana'),
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                            ),
+                            TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Village'),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Bhatpachalana'),
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                            ),
+                            TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Khasra No'),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('473/3'),
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                            ),
+                            TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('Land Area'),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0), // Add padding as needed
+                                      child: Align(
+                                        alignment: Alignment.centerLeft, // Align content to the left
+                                        child: Text('1.2750'),
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15.0,),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 40.0,
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Text(''),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Total land area of above khasaras (in hecatares'),
+                              SizedBox(height: 5.0,),
+                              Text('1.275')
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Padding(padding: EdgeInsets.all(15.0),
+                            child: Text('Crops Proposed To Be Grown', style: TextStyle(color: Colors.white),)),
+                        ),
+                        SizedBox(height: 15.0,),
+                        Container(
+                          padding: EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 50.0,
+                                decoration: BoxDecoration(color: Colors.black),
+                                child: Padding(padding: EdgeInsets.all(15.0),
+                                    child: Text('1. Kharif', style: TextStyle(color: Colors.white),)),
+                              ),
+                              Column(
+                                children: [
+                                  DropDown(onPressed: (String? selectedCrop){}, list1: crops, hintText: 'Choose a crop'),
+                                  DropDown(onPressed: (String? selectedCrop){}, list1: crops, hintText: 'Choose a crop')
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 50.0,
+                                decoration: BoxDecoration(color: Colors.black),
+                                child: Padding(padding: EdgeInsets.all(15.0),
+                                    child: Text('1. Rabi', style: TextStyle(color: Colors.white),)),
+                              ),
+                              Column(
+                                children: [
+                                  DropDown(onPressed: (String? selectedCrop){}, list1: crops, hintText: 'Choose a crop'),
+                                  DropDown(onPressed: (String? selectedCrop){}, list1: crops, hintText: 'Choose a crop')
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        BlackButton(buttonName: 'SUBMIT DETAILS', onPressed: (){})
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15.0,),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Padding(padding: EdgeInsets.all(15.0),
+                              child: Text('Loan Amount Details', style: TextStyle(color: Colors.white),)),
+                        ),
+                        SizedBox(height: 15.0,),
+                       Padding(
+                           padding: EdgeInsets.all(15.0),
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Text('Estimated Loan Amount'),
+                             TextField(decoration: InputDecoration(hintText: 'Enter amount'),),
+                             SizedBox(height: 10.0,),
+                             Text('Would you like to request a different loan amount'),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.start,
+                               children: [
+                                 Expanded(child: ListTile(
+                                   title: Text('Yes'),
+                                   leading: Radio<DifferentLoanAmount>(
+                                     value: DifferentLoanAmount.Yes,
+                                     groupValue: _differentLoanAmount,
+                                     onChanged: (DifferentLoanAmount?value){
+                                       setState(() {
+                                         _differentLoanAmount = value!;
+                                       });
+                                     },
+                                   ),
+                                 )),
+                                 Expanded(child: ListTile(
+                                   title: Text('No'),
+                                   leading: Radio<DifferentLoanAmount>(
+                                     value: DifferentLoanAmount.No,
+                                     groupValue: _differentLoanAmount,
+                                     onChanged: (DifferentLoanAmount?value){
+                                       setState(() {
+                                         _differentLoanAmount = value!;
+                                       });
+                                     },
+                                   ),
+                                 ))
+                               ],
+                             ),
+                             SizedBox(height: 10.0,),
+                             Text('Requested Loan Amount'),
+                             TextField(decoration: InputDecoration(hintText: 'Enter amount'),),
+                             SizedBox(height: 5.0,),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.start,
+                               children: [
+                                 Checkbox(
+                                   checkColor: Colors.black,
+                                     value: checkbox1,
+                                     onChanged: (bool ?selectedValue){
+                                      setState(() {
+                                        checkbox1 = selectedValue!;
+                                      });
+                                 }),
+                                 Expanded(child: Text('I provide my consent to Bank to hold on selected operative towards recovery of dues.'))
+                               ],
+                             ),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.start,
+                               children: [
+                                 Checkbox(
+                                     checkColor: Colors.black,
+                                     value: checkbox2,
+                                     onChanged: (bool ?selectedValue){
+                                       setState(() {
+                                         checkbox2 = selectedValue!;
+                                       });
+                                     }),
+                                 Expanded(child: Text('I provide my consent for extraction of credit information report from CIC’s & also to disclose the information '
+                                     'relating to credit facilities availed / to be availed.'))
+                               ],
+                             ),
+                             SizedBox(height: 20.0,),
+                             BlackButton(buttonName: 'SUBMIT DETAILS', onPressed: (){})
+                           ],
+                         ),
+                       ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 30.0,
+                          decoration: BoxDecoration(color: Colors.black),
+                        ),
+                        Text('Congratulations!', style: TextStyle(fontSize: 35.0, fontWeight:FontWeight.w700 ),),
+                        Container(height: 60.0,),
+                        Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 50.0,
+                                decoration: BoxDecoration(color: Colors.black),
+                                child: Padding(padding: EdgeInsets.all(15.0),
+                                    child: Text('Your loan has been Sanctioned', style: TextStyle(color: Colors.white),)),
+                              ),
+                              CreamCard(heading: 'Loan Amount', content: 'Rs 160000'),
+                              SizedBox(height: 10.0,),
+                              CreamCard(heading: 'Rate of Interest', content: '9.30%p.a'),
+                              SizedBox(height: 10.0,),
+                              CreamCard(heading: 'Digital Convenience fee:', content: 'Rs. 500 + GST (i.e Rs 590 at present, Non-Refundable)'),
+                              SizedBox(height: 10.0,),
+                              CreamCard(heading: '', content: '(Will be collected upfront from KCC Loan A/C'),
+                              SizedBox(height: 10.0,),
+                              Padding(
+                                padding: EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
+                                    BlackButton(buttonName: 'VIEW SANCTION LETTER', onPressed: (){}),
+                                    SizedBox(height: 15.0,),
+                                    BlackButton(buttonName: 'VIEW LOAN APPLICATION', onPressed: (){})
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+
+                      ],
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Padding(padding: EdgeInsets.all(15.0),
+                              child: Text('Documentation execution', style: TextStyle(color: Colors.white),)),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Column(
+                            children: [
+                              Text('How would you want your loan documents to be executed'),
+                              SizedBox(height:15.0),
+                              ListTile(
+                                title: Text('Digital'),
+                                leading: Radio(value: _documenExecution, groupValue: DocumentExecution.Digital,
+                                    onChanged: (DocumentExecution? value ){
+                                       setState(() {
+                                          _documenExecution = value!;
+                                       });
+                                    }
+                                )
+                              ),
+                              BlackButton(buttonName: 'INITIATE ESIGN', onPressed: () {
+                                _showClosingDialog(context);
+                              },)
                             ],
                           ),
                         )
