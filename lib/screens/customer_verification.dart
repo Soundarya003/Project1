@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsloan/widgets/black_button.dart';
 
 class CustomerVerification extends StatefulWidget {
   const CustomerVerification({Key? key}) : super(key: key);
@@ -74,7 +75,7 @@ class _CustomerVerificationState extends State<CustomerVerification> {
             title: Text('UBI BC Assist', style: TextStyle(color: Colors.black, ),),
             backgroundColor: Colors.white,
           ),
-          backgroundColor: Colors.grey,
+          backgroundColor: Color(0xFFFCFBF4),
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(15.0),
@@ -100,7 +101,7 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                           child: Column(
                             children: [
                               Align( alignment: Alignment.centerLeft, child: Text('Enter customer aadhar number',)),
-                              TextField(decoration: InputDecoration(hintText: '8520002434'),),
+                              TextField(decoration: InputDecoration(hintText: '8520002434'),keyboardType: TextInputType.number,),
                               SizedBox(height: 20.0,),
                               Text('PRATAP SINGH', style: TextStyle(fontWeight: FontWeight.w800),),
                               SizedBox(height: 15.0,),
@@ -122,6 +123,46 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                       ],
                     ),
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          color: Colors.black, // Set the background color for the row
+                          padding: EdgeInsets.all(16.0),
+                          child: Text('Land Details', style: TextStyle(color: Colors.white)
+                            ,),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Select District',style: TextStyle(fontWeight: FontWeight.w800,fontSize: 15.0),),
+                              TextField(decoration: InputDecoration(hintText: 'Select district', labelStyle: TextStyle(fontSize: 15.0)),),
+                              SizedBox(height: 10.0,),
+                              Text('Select Tehsil',style: TextStyle(fontWeight: FontWeight.w800,fontSize: 15.0),),
+                              TextField(decoration: InputDecoration(hintText: 'Select Tehisl', labelStyle: TextStyle(fontSize: 15.0)),),
+                              SizedBox(height: 10.0,),
+                              Text('Select Halka',style: TextStyle(fontWeight: FontWeight.w800,fontSize: 15.0),),
+                              TextField(decoration: InputDecoration(hintText: 'Select Halka', labelStyle: TextStyle(fontSize: 15.0)),),
+                              SizedBox(height: 10.0,),
+                              Text('Select Village',style: TextStyle(fontWeight: FontWeight.w800,fontSize: 15.0),),
+                              TextField(decoration: InputDecoration(hintText: 'Select Village', labelStyle: TextStyle(fontSize: 15.0)),),
+                              SizedBox(height: 10.0,),
+                              Text('Enter Khasra',style: TextStyle(fontWeight: FontWeight.w800,fontSize: 15.0),),
+                              TextField(decoration: InputDecoration(hintText: 'Enter Khasra No', labelStyle: TextStyle(fontSize: 15.0)),),
+                              SizedBox(height: 25.0,),
+                              BlackButton(buttonName: 'FETCH LAND DETAILS', onPressed: (){})
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               )
             ),
