@@ -3,6 +3,7 @@ import 'package:whatsloan/widgets/dropdown.dart';
 import 'package:whatsloan/widgets/black_button.dart';
 import 'package:whatsloan/screens/customer_verification.dart';
 import 'package:whatsloan/screens/coApplicant_screen.dart';
+import 'package:whatsloan/screens/agreement.dart';
 
 class AadharLogin extends StatefulWidget {
   static const String id = 'aadharLogin_screen';

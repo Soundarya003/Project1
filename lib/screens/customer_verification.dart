@@ -3,6 +3,7 @@ import 'package:whatsloan/widgets/black_button.dart';
 import 'package:whatsloan/screens/agreement.dart';
 import 'package:whatsloan/widgets/dropdown.dart';
 import 'package:whatsloan/widgets/card.dart';
+
 // ignore: prefer_expression_function_bodies
 
 class CustomerVerification extends StatefulWidget {
@@ -12,11 +13,12 @@ class CustomerVerification extends StatefulWidget {
   @override
   State<CustomerVerification> createState() => _CustomerVerificationState();
 }
-enum DifferentLoanAmount {Yes, No}
-enum DocumentExecution {Digital}
+
+enum DifferentLoanAmount { Yes, No }
+
+enum DocumentExecution { Digital }
 
 class _CustomerVerificationState extends State<CustomerVerification> {
-
   late String district, Tehsil, Halka, Village;
   late int Khasara;
   late List<String> crops = ['Ragi', 'Rice','Wheat'];
@@ -26,9 +28,10 @@ class _CustomerVerificationState extends State<CustomerVerification> {
   bool checkbox2 = false;
   bool isLandVerification = false;
   bool isCropVerified = false;
+  bool isSanction = false;
   bool fetchLandDetails = false;
   bool submitDetails1 = false;
-
+  bool submitDetails2 = false;
 
   @override
   void initState() {
@@ -133,25 +136,28 @@ class _CustomerVerificationState extends State<CustomerVerification> {
         }
     );
   }
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('UBI BC Assist', style: TextStyle(color: Colors.black, ),),
-            backgroundColor: Colors.white,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            'UBI BC Assist',
+            style: TextStyle(
+              color: Colors.black,
+            ),
           ),
-          backgroundColor: Color(0xFFFCFBF4),
-          body: SingleChildScrollView(
-            child: Padding(
+          backgroundColor: Colors.white,
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
               padding: EdgeInsets.all(15.0),
               child: Column(
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white
+                        color: Colors.white
                     ),
                     child: Column(
                       children: [
@@ -180,8 +186,8 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                 child: ElevatedButton(
                                   onPressed: (){}, child: Text('VERIFY'),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.grey,
-                                    padding: EdgeInsets.symmetric(horizontal: 30.0)
+                                      backgroundColor: Colors.grey,
+                                      padding: EdgeInsets.symmetric(horizontal: 30.0)
                                   ),
                                 ),
                               )
@@ -226,16 +232,15 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                               TextField(decoration: InputDecoration(hintText: 'Enter Khasra No', labelStyle: TextStyle(fontSize: 15.0)),),
                               SizedBox(height: 25.0,),
                               DisabledBlackButton(
-                                  buttonName: 'FETCH LAND DETAILS',
-                                  onPressed: fetchLandDetails ? null : () {
-                                    setState(() {
-                                      isLandVerification = true;
-                                      fetchLandDetails = true;
-                                    });
-                                  },
-                                  buttonColor: fetchLandDetails ? Colors.grey : Colors.black,
+                                buttonName: 'FETCH LAND DETAILS',
+                                onPressed: fetchLandDetails ? null : () {
+                                  setState(() {
+                                    isLandVerification = true;
+                                    fetchLandDetails = true;
+                                  });
+                                },
+                                buttonColor: fetchLandDetails ? Colors.grey : Colors.black,
                               )
-
                             ],
                           ),
                         ),
@@ -467,7 +472,17 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                   ],
                                 ),
                               ),
-                              BlackButton(buttonName: 'SUBMIT DETAILS', onPressed: (){})
+                              DisabledBlackButton(
+                                buttonName: 'SUBMIT DETAILS',
+                                onPressed: submitDetails1 ? null : () {
+                                  setState(() {
+                                    isCropVerified = true;
+                                    submitDetails1 = true;
+                                  });
+                                },
+                                buttonColor: isCropVerified ? Colors.grey : Colors.black,
+                              )
+
                             ],
                           ),
                         ),
@@ -475,111 +490,165 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                     ),
                   ),
                   SizedBox(height: 15.0,),
-                  Container(
-                    color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: 50.0,
-                          decoration: BoxDecoration(color: Colors.black),
-                          child: Padding(padding: EdgeInsets.all(15.0),
-                              child: Text('Loan Amount Details', style: TextStyle(color: Colors.white),)),
-                        ),
-                        SizedBox(height: 15.0,),
-                       Padding(
-                           padding: EdgeInsets.all(15.0),
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Text('Estimated Loan Amount'),
-                             TextField(decoration: InputDecoration(hintText: 'Enter amount'),),
-                             SizedBox(height: 10.0,),
-                             Text('Would you like to request a different loan amount'),
-                             Row(
-                               mainAxisAlignment: MainAxisAlignment.start,
-                               children: [
-                                 Expanded(child: ListTile(
-                                   title: Text('Yes'),
-                                   leading: Radio<DifferentLoanAmount>(
-                                     value: DifferentLoanAmount.Yes,
-                                     groupValue: _differentLoanAmount,
-                                     onChanged: (DifferentLoanAmount?value){
-                                       setState(() {
-                                         _differentLoanAmount = value!;
-                                       });
-                                     },
-                                   ),
-                                 )),
-                                 Expanded(child: ListTile(
-                                   title: Text('No'),
-                                   leading: Radio<DifferentLoanAmount>(
-                                     value: DifferentLoanAmount.No,
-                                     groupValue: _differentLoanAmount,
-                                     onChanged: (DifferentLoanAmount?value){
-                                       setState(() {
-                                         _differentLoanAmount = value!;
-                                       });
-                                     },
-                                   ),
-                                 ))
-                               ],
-                             ),
-                             SizedBox(height: 10.0,),
-                             Text('Requested Loan Amount'),
-                             TextField(decoration: InputDecoration(hintText: 'Enter amount'),),
-                             SizedBox(height: 5.0,),
-                             Row(
-                               mainAxisAlignment: MainAxisAlignment.start,
-                               children: [
-                                 Checkbox(
-                                   checkColor: Colors.black,
-                                     value: checkbox1,
-                                     onChanged: (bool ?selectedValue){
-                                      setState(() {
-                                        checkbox1 = selectedValue!;
-                                      });
-                                 }),
-                                 Expanded(child: Text('I provide my consent to Bank to hold on selected operative towards recovery of dues.'))
-                               ],
-                             ),
-                             Row(
-                               mainAxisAlignment: MainAxisAlignment.start,
-                               children: [
-                                 Checkbox(
-                                     checkColor: Colors.black,
-                                     value: checkbox2,
-                                     onChanged: (bool ?selectedValue){
-                                       setState(() {
-                                         checkbox2 = selectedValue!;
-                                       });
-                                     }),
-                                 Expanded(child: Text('I provide my consent for extraction of credit information report from CIC’s & also to disclose the information '
-                                     'relating to credit facilities availed / to be availed.'))
-                               ],
-                             ),
-                             SizedBox(height: 20.0,),
-                             BlackButton(buttonName: 'SUBMIT DETAILS', onPressed: (){})
-                           ],
-                         ),
-                       ),
-                      ],
+                  Visibility(
+                    visible: isCropVerified,
+                    child: Container(
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 50.0,
+                            decoration: BoxDecoration(color: Colors.black),
+                            child: Padding(padding: EdgeInsets.all(15.0),
+                                child: Text('Loan Amount Details', style: TextStyle(color: Colors.white),)),
+                          ),
+                          SizedBox(height: 15.0,),
+                          Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Estimated Loan Amount'),
+                                TextField(decoration: InputDecoration(hintText: 'Enter amount'),),
+                                SizedBox(height: 10.0,),
+                                Text('Would you like to request a different loan amount'),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Expanded(child: ListTile(
+                                      title: Text('Yes'),
+                                      leading: Radio<DifferentLoanAmount>(
+                                        value: DifferentLoanAmount.Yes,
+                                        groupValue: _differentLoanAmount,
+                                        onChanged: (DifferentLoanAmount?value){
+                                          setState(() {
+                                            _differentLoanAmount = value!;
+                                          });
+                                        },
+                                      ),
+                                    )),
+                                    Expanded(child: ListTile(
+                                      title: Text('No'),
+                                      leading: Radio<DifferentLoanAmount>(
+                                        value: DifferentLoanAmount.No,
+                                        groupValue: _differentLoanAmount,
+                                        onChanged: (DifferentLoanAmount?value){
+                                          setState(() {
+                                            _differentLoanAmount = value!;
+                                          });
+                                        },
+                                      ),
+                                    ))
+                                  ],
+                                ),
+                                SizedBox(height: 10.0,),
+                                Text('Requested Loan Amount'),
+                                TextField(decoration: InputDecoration(hintText: 'Enter amount'),),
+                                SizedBox(height: 5.0,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Checkbox(
+                                        checkColor: Colors.black,
+                                        value: checkbox1,
+                                        onChanged: (bool ?selectedValue){
+                                          setState(() {
+                                            checkbox1 = selectedValue!;
+                                          });
+                                        }),
+                                    Expanded(child: Text('I provide my consent to Bank to hold on selected operative towards recovery of dues.'))
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Checkbox(
+                                        checkColor: Colors.black,
+                                        value: checkbox2,
+                                        onChanged: (bool ?selectedValue){
+                                          setState(() {
+                                            checkbox2 = selectedValue!;
+                                          });
+                                        }),
+                                    Expanded(child: Text('I provide my consent for extraction of credit information report from CIC’s & also to disclose the information '
+                                        'relating to credit facilities availed / to be availed.'))
+                                  ],
+                                ),
+                                SizedBox(height: 20.0,),
+                                DisabledBlackButton(
+                                  buttonName: 'SUBMIT DETAILS',
+                                  onPressed: submitDetails2 ? null : () {
+                                    setState(() {
+                                      isSanction = true;
+                                      submitDetails2 = true;
+                                    });
+                                  },
+                                  buttonColor: submitDetails2 ? Colors.grey : Colors.black,
+                                )
+
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    color: Colors.white,
+                  Visibility(
+                    visible: isSanction,
                     child: Column(
                       children: [
                         Container(
-                          width: double.infinity,
-                          height: 30.0,
-                          decoration: BoxDecoration(color: Colors.black),
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 30.0,
+                                decoration: BoxDecoration(color: Colors.black),
+                              ),
+                              SizedBox(height: 30.0,),
+                              Text('Congratulations!', style: TextStyle(fontSize: 35.0, fontWeight:FontWeight.w700 ),),
+                              Container(height: 60.0,),
+                              Padding(
+                                padding: EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(color: Colors.black),
+                                      child: Padding(padding: EdgeInsets.all(15.0),
+                                          child: Text('Your loan has been Sanctioned', style: TextStyle(color: Colors.white),)),
+                                    ),
+                                    CreamCard(heading: 'Loan Amount', content: 'Rs 160000'),
+                                    SizedBox(height: 10.0,),
+                                    CreamCard(heading: 'Rate of Interest', content: '9.30%p.a'),
+                                    SizedBox(height: 10.0,),
+                                    CreamCard(heading: 'Digital Convenience fee:', content: 'Rs. 500 + GST (i.e Rs 590 at present, Non-Refundable)'),
+                                    SizedBox(height: 10.0,),
+                                    CreamCard(heading: '', content: '(Will be collected upfront from KCC Loan A/C'),
+                                    SizedBox(height: 10.0,),
+                                    Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: Column(
+                                        children: [
+                                          BlackButton(buttonName: 'VIEW SANCTION LETTER', onPressed: (){}),
+                                          SizedBox(height: 15.0,),
+                                          BlackButton(buttonName: 'VIEW LOAN APPLICATION', onPressed: (){})
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+
+                            ],
+                          ),
                         ),
-                        Text('Congratulations!', style: TextStyle(fontSize: 35.0, fontWeight:FontWeight.w700 ),),
-                        Container(height: 60.0,),
-                        Padding(
-                          padding: EdgeInsets.all(20.0),
+                        Container(
+                          color: Colors.white,
                           child: Column(
                             children: [
                               Container(
@@ -587,63 +656,30 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                 height: 50.0,
                                 decoration: BoxDecoration(color: Colors.black),
                                 child: Padding(padding: EdgeInsets.all(15.0),
-                                    child: Text('Your loan has been Sanctioned', style: TextStyle(color: Colors.white),)),
+                                    child: Text('Documentation execution', style: TextStyle(color: Colors.white),)),
                               ),
-                              CreamCard(heading: 'Loan Amount', content: 'Rs 160000'),
-                              SizedBox(height: 10.0,),
-                              CreamCard(heading: 'Rate of Interest', content: '9.30%p.a'),
-                              SizedBox(height: 10.0,),
-                              CreamCard(heading: 'Digital Convenience fee:', content: 'Rs. 500 + GST (i.e Rs 590 at present, Non-Refundable)'),
-                              SizedBox(height: 10.0,),
-                              CreamCard(heading: '', content: '(Will be collected upfront from KCC Loan A/C'),
-                              SizedBox(height: 10.0,),
                               Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(15.0),
                                 child: Column(
                                   children: [
-                                    BlackButton(buttonName: 'VIEW SANCTION LETTER', onPressed: (){}),
-                                    SizedBox(height: 15.0,),
-                                    BlackButton(buttonName: 'VIEW LOAN APPLICATION', onPressed: (){})
+                                    Text('How would you want your loan documents to be executed'),
+                                    SizedBox(height:15.0),
+                                    ListTile(
+                                        title: Text('Digital'),
+                                        leading: Radio(value: _documenExecution, groupValue: DocumentExecution.Digital,
+                                            onChanged: (DocumentExecution? value ){
+                                              setState(() {
+                                                _documenExecution = value!;
+                                              });
+                                            }
+                                        ),
+                                    ),
+                                    BlackButton(buttonName: 'INITIATE ESIGN', onPressed: () {
+                                      _showClosingDialog(context);
+                                    },)
                                   ],
                                 ),
                               )
-                            ],
-                          ),
-                        )
-
-                      ],
-                    ),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: 50.0,
-                          decoration: BoxDecoration(color: Colors.black),
-                          child: Padding(padding: EdgeInsets.all(15.0),
-                              child: Text('Documentation execution', style: TextStyle(color: Colors.white),)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Column(
-                            children: [
-                              Text('How would you want your loan documents to be executed'),
-                              SizedBox(height:15.0),
-                              ListTile(
-                                title: Text('Digital'),
-                                leading: Radio(value: _documenExecution, groupValue: DocumentExecution.Digital,
-                                    onChanged: (DocumentExecution? value ){
-                                       setState(() {
-                                          _documenExecution = value!;
-                                       });
-                                    }
-                                )
-                              ),
-                              BlackButton(buttonName: 'INITIATE ESIGN', onPressed: () {
-                                _showClosingDialog(context);
-                              },)
                             ],
                           ),
                         )
@@ -652,9 +688,9 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                   )
                 ],
               )
-            ),
-          )
-        )
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Agreement extends StatefulWidget {
-  static const String id = 'landVerification_id';
+  static const String id = 'agreement_id';
   const Agreement({Key? key}) : super(key: key);
 
   @override
@@ -16,7 +16,9 @@ class _AgreementState extends State<Agreement> {
           backgroundColor: Color(0xFFFCFBF4),
           body: SingleChildScrollView(
             child: Column(
-
+              children: [
+                Text('Hello')
+              ],
             ),
           ),
     )
