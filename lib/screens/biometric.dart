@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:whatsloan/screens/fingerprint_screen.dart';
 import 'package:whatsloan/widgets/black_button.dart';
 
@@ -11,6 +12,8 @@ class BiometricScreen extends StatefulWidget {
 }
 
 class _BiometricScreenState extends State<BiometricScreen> {
+  final LocalAuthentication auth = LocalAuthentication();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

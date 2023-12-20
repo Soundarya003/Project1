@@ -5,7 +5,9 @@ import 'package:whatsloan/screens/biometric.dart';
 import 'package:whatsloan/screens/fingerprint_screen.dart';
 import 'package:whatsloan/screens/aadharLogin_screen.dart';
 import 'package:whatsloan/screens/customer_verification.dart';
+import 'package:whatsloan/screens/coApplicant_screen.dart';
 import 'package:whatsloan/screens/agreement.dart';
+import 'package:whatsloan/screens/Esign_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,8 +34,10 @@ class MyApp extends StatelessWidget {
         BiometricScreen.id: (context) => BiometricScreen(),
         FingerprintScreen.id : (context) => FingerprintScreen(),
         AadharLogin.id : (context) => AadharLogin(),
+        CoApplicant.id : (context) => CoApplicant(),
         CustomerVerification.id :(context) => CustomerVerification(),
         Agreement.id : (context) => Agreement(),
+        EsignScreen.id : (context) => EsignScreen(),
       },
     );
   }

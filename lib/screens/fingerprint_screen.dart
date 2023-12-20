@@ -11,10 +11,34 @@ class FingerprintScreen extends StatefulWidget {
 }
 
 class _FingerprintScreenState extends State<FingerprintScreen> {
+  Future<bool> authenticate() async {
+    try {
+      var localAuth = LocalAuthentication();
+      bool canCheckBiometrics = await localAuth.canCheckBiometrics;
+      List<BiometricType> availableBiometrics = await localAuth.getAvailableBiometrics();
+
+      if (canCheckBiometrics && availableBiometrics.isNotEmpty) {
+        // Authenticate using biometrics
+        return await localAuth.authenticate(
+          localizedReason: 'Authenticate to access the app',
+
+        );
+      } else {
+        // Biometrics not available on the device
+        print('Biometrics not available');
+        return false;
+      }
+    } catch (e) {
+      print('Error during biometric authentication: $e');
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
     return SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -38,9 +62,18 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 0.1*screenWidth,),
-                TextButton(onPressed: (){
-                  Navigator.pushNamed(context, AadharLogin.id);
-                }, child: Text('Go to next screen'))
+                ElevatedButton(
+                  onPressed: () async {
+                    bool isAuthenticated = await authenticate();
+                    if (isAuthenticated) {
+                      print('Authentication successful');
+                      Navigator.pushNamed(context, AadharLogin.id);
+                    } else {
+                      print('Authentication failed');
+                    }
+                  },
+                  child: Text('Authenticate with Fingerprint'),
+                ),
               ],
             ),
           ),

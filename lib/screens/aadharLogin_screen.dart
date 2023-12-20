@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whatsloan/widgets/dropdown.dart';
 import 'package:whatsloan/widgets/black_button.dart';
 import 'package:whatsloan/screens/customer_verification.dart';
+import 'package:whatsloan/screens/coApplicant_screen.dart';
 
 class AadharLogin extends StatefulWidget {
   static const String id = 'aadharLogin_screen';
@@ -41,7 +42,7 @@ class _AadharLoginState extends State<AadharLogin> {
                      child: ElevatedButton(
                        style: ElevatedButton.styleFrom(backgroundColor: Colors.black, padding: EdgeInsets.symmetric(horizontal: 20.0), ),
                        onPressed: () => {
-
+                         Navigator.pushNamed(context, CoApplicant.id)
                        },
                        child: Padding(
                            padding: EdgeInsets.all(10.0),
