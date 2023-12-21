@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Transform.scale(
               scale: 0.5, // Set the scale factor to 0.5 for half the original size
-              child: Image.asset('images/unionbank_logo.png'),
+              child: Image.asset('images/logo2.png'),
             ),
             SizedBox(height: screenHeight*0.02,),
             Text(
