@@ -11,6 +11,7 @@ class FingerprintScreen extends StatefulWidget {
 }
 
 class _FingerprintScreenState extends State<FingerprintScreen> {
+
   Future<bool> authenticate() async {
     try {
       var localAuth = LocalAuthentication();
@@ -32,6 +33,23 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
       print('Error during biometric authentication: $e');
       return false;
     }
+  }
+
+  Future<void> fingerPrint() async {
+    bool isAuthenticated = await authenticate();
+    if (isAuthenticated) {
+      print('Authentication successful');
+      Navigator.pushNamed(context, AadharLogin.id);
+    } else {
+      print('Authentication failed');
+    }
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // Show AlertDialog after a short delay
+   fingerPrint();
   }
 
   @override
@@ -62,18 +80,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 0.1*screenWidth,),
-                ElevatedButton(
-                  onPressed: () async {
-                    bool isAuthenticated = await authenticate();
-                    if (isAuthenticated) {
-                      print('Authentication successful');
-                      Navigator.pushNamed(context, AadharLogin.id);
-                    } else {
-                      print('Authentication failed');
-                    }
-                  },
-                  child: Text('Authenticate with Fingerprint'),
-                ),
+
               ],
             ),
           ),

@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.whatsloan">
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
-
+    <!-- Required to fetch data from the internet. -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="whatsloan"
         android:name="${applicationName}"

@@ -28,8 +28,6 @@ class _AadharLoginState extends State<AadharLogin> {
   late String selected_religion, selected_marital, selected_social;
   DocumentNeeded _documentNeeded = DocumentNeeded.PAN;
   final _formKey = GlobalKey<FormState>();
-  Map<String, dynamic> applicantInformation = new Map<String,dynamic>();
-
 
   void _showDialog(BuildContext context) {
     showDialog(
@@ -284,9 +282,8 @@ class _AadharLoginState extends State<AadharLogin> {
                             ],
                           ),
                           if (_documentNeeded == DocumentNeeded.PAN)
-                            NumberTextField(
+                            StringTextField(
                               userhintText: 'Enter PAN no', textEditingController: _panNo, maxLength: 10,
-                              
                             )
                           else
                             StringTextField(

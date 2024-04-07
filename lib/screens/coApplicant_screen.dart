@@ -212,7 +212,7 @@ class _CoApplicantState extends State<CoApplicant> {
                                 ],
                               ),
                               if (_documentNeeded == DocumentNeeded.PAN)
-                                NumberTextField(
+                                StringTextField(
                                   userhintText: 'Enter PAN no', textEditingController: _panNo, maxLength: 10,
 
                                 )

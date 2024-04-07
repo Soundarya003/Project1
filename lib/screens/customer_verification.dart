@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:whatsloan/widgets/black_button.dart';
-import 'package:whatsloan/screens/agreement.dart';
 import 'package:whatsloan/widgets/dropdown.dart';
 import 'package:whatsloan/widgets/textfield.dart';
 import 'package:whatsloan/widgets/card.dart';
@@ -24,7 +23,7 @@ class _CustomerVerificationState extends State<CustomerVerification> {
   late int Khasara;
   late List<String> crops = ['Ragi', 'Rice', 'Wheat'];
   DifferentLoanAmount _differentLoanAmount = DifferentLoanAmount.Yes;
-  DocumentExecution _documenExecution = DocumentExecution.Digital;
+  DocumentExecution _documentExecution = DocumentExecution.Digital;
   bool checkbox1 = false;
   bool checkbox2 = false;
   bool isLandVerification = false;
@@ -154,7 +153,8 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                         backgroundColor: Colors.black,
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                       ),
-                      onPressed: () => {},
+                      onPressed: () => {
+                      },
                       child: Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Text(
@@ -221,7 +221,7 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                     'Enter customer aadhar number',
                                   )),
                               NumberTextField(
-                                  userhintText: '378954123589',
+                                  userhintText: 'Enter your aadhar number',
                                   textEditingController: _aadhar,
                                   maxLength: 12),
                               SizedBox(
@@ -369,7 +369,7 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                 width: 0.5),
                             children: [
                               TableRow(children: [
-                                TableCell(
+                                const TableCell(
                                   child: Padding(
                                     padding: EdgeInsets.all(
                                         8.0), // Add padding as needed
@@ -387,13 +387,13 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                     child: Align(
                                       alignment: Alignment
                                           .centerLeft, // Align content to the left
-                                      child: Text('Ujjain'),
+                                      child: Text(_district.text),
                                     ),
                                   ),
                                 ),
                               ]),
-                              TableRow(children: [
-                                TableCell(
+                               TableRow(children: [
+                                const TableCell(
                                   child: Padding(
                                     padding: EdgeInsets.all(
                                         8.0), // Add padding as needed
@@ -411,13 +411,13 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                     child: Align(
                                       alignment: Alignment
                                           .centerLeft, // Align content to the left
-                                      child: Text('Badnagar'),
+                                      child: Text(_tehsil.text),
                                     ),
                                   ),
                                 ),
                               ]),
                               TableRow(children: [
-                                TableCell(
+                                const TableCell(
                                   child: Padding(
                                     padding: EdgeInsets.all(
                                         8.0), // Add padding as needed
@@ -435,13 +435,13 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                     child: Align(
                                       alignment: Alignment
                                           .centerLeft, // Align content to the left
-                                      child: Text('Bhatpachalana'),
+                                      child: Text(_halka.text),
                                     ),
                                   ),
                                 ),
                               ]),
                               TableRow(children: [
-                                TableCell(
+                                const TableCell(
                                   child: Padding(
                                     padding: EdgeInsets.all(
                                         8.0), // Add padding as needed
@@ -459,13 +459,13 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                     child: Align(
                                       alignment: Alignment
                                           .centerLeft, // Align content to the left
-                                      child: Text('Bhatpachalana'),
+                                      child: Text(_village.text),
                                     ),
                                   ),
                                 ),
                               ]),
                               TableRow(children: [
-                                TableCell(
+                                const TableCell(
                                   child: Padding(
                                     padding: EdgeInsets.all(
                                         8.0), // Add padding as needed
@@ -483,7 +483,7 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                     child: Align(
                                       alignment: Alignment
                                           .centerLeft, // Align content to the left
-                                      child: Text('473/3'),
+                                      child: Text(_khasra.text),
                                     ),
                                   ),
                                 ),
@@ -842,6 +842,18 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                           submitDetails2 = true;
                                         });
                                       }
+                                      else{
+                                        final snackBar = SnackBar(
+                                          content: const Text('Agree to terms and conditions to proceed'),
+                                          action: SnackBarAction(
+                                            label: 'Ok',
+                                            onPressed: () {
+
+                                            },
+                                          ),
+                                        );
+                                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                      }
                                           },
                                     buttonColor: submitDetails2
                                         ? Colors.grey
@@ -972,12 +984,12 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                                     ListTile(
                                       title: Text('Digital'),
                                       leading: Radio(
-                                          value: _documenExecution,
+                                          value: _documentExecution,
                                           groupValue: DocumentExecution.Digital,
                                           onChanged:
                                               (DocumentExecution? value) {
                                             setState(() {
-                                              _documenExecution = value!;
+                                              _documentExecution = value!;
                                             });
                                           }),
                                     ),
@@ -995,7 +1007,151 @@ class _CustomerVerificationState extends State<CustomerVerification> {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Text(
+                                'ई-साइन (E-SIGN)',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(30.0),
+                          child: Column(
+                              children: [
+                                Text('"आपके केसीसी ऋण दस्तावेज़ों पर सफलतापूर्वक ई-हस्ताक्षर कर दिए गए हैं!!"', textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w800),
+                                ),
+                                Text('"YOUR KCC LOAN DOCUMENTS HAVE BEEN E-SIGNED SUCCESSFULLY!!"', textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w800),
+                                ),
+                                SizedBox(height: 30.0,),
+                                Text('हस्ताक्षरित दस्तावेज़', textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15.0),
+                                ),
+                                Text('(Signed Document)', textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w800),
+                                ),
+                                Icon(Icons.attachment, color: Colors.black,)
+                              ],
+                          ),
+                        ),
+                        Divider(color: Colors.black,),
+                        Padding(
+                          padding: EdgeInsets.all(30.0),
+                          child: Column(
+                            children: [
+                              Text('एप्लिकेशन लेनदेन आईडी: MP_NESL00003019"', textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w800),
+                              ),
+                              Text('(Application Transaction ID)', textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w800),
+                              ),
+                              SizedBox(height: 30.0,),
+                              Text('NeSL एनईएसएल लेनदेन आईडी: MP_NESL00003019', textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 15.0),
+                              ),
+                              Text('(NESL Transaction ID)', textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w800),
+                              ),
+                              Icon(Icons.attachment, color: Colors.black,)
+                            ],
+                          ),
+                        ),
+                        Divider(color: Colors.black,),
+                        BlackButton(buttonName: 'SUBMIT', onPressed: (){
+                         
+                        }),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.0,),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Text(
+                                'संवितरण विवरण (Disbursement Details)',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        SizedBox(height: 20.0,),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0, bottom: 30.0),
+                          child: Table(
+                            border: TableBorder.all(
+                                color: Colors.black,
+                                style: BorderStyle.solid,
+                                width: 0.5),
+                            children: [
+                              TableRow(
+                                children: [
+                                  Padding(padding: EdgeInsets.all(15.0),
+                                   child: Text('आवेदक का नाम\nApplicant Name')),
+                                  Padding(padding: EdgeInsets.all(15.0),
+                                  child: Text('UDIT TIWARI',textAlign: TextAlign.right,))
+                                ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('आवेदन संख्या\nApplication No')),
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('566805030000000066\n(Created On: July 10, 2023 10:33 AM)',textAlign: TextAlign.right,))
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('ऋण खाता संख्या\nLoan A/C No')),
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('566805030000000066\n(Created On: July 10, 2023 10:33 AM)',textAlign: TextAlign.right,))
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('डिजिटल सुविधा शुल्क\nDigital Convenience Fee')),
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('Rs. 500 + जीएसटी GST (i.e Rs. 590 at present, अप्रतिदेय या गैर वापसी Non - Refundable)',textAlign: TextAlign.right,))
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('स्टाम्प शुल्क\nStamp duty')),
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('Nil',textAlign: TextAlign.right,))
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('दस्तावेज़ शुल्क\nDigital Convenience Fee')),
+                                    Padding(padding: EdgeInsets.all(15.0),
+                                        child: Text('Nil',textAlign: TextAlign.right,))
+                                  ]
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               )),
         ),

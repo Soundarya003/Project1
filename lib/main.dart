@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:whatsloan/screens/login_screen.dart';
-import 'package:whatsloan/screens/biometric.dart';
 import 'package:whatsloan/screens/fingerprint_screen.dart';
 import 'package:whatsloan/screens/aadharLogin_screen.dart';
 import 'package:whatsloan/screens/customer_verification.dart';
 import 'package:whatsloan/screens/coApplicant_screen.dart';
-import 'package:whatsloan/screens/agreement.dart';
-import 'package:whatsloan/screens/Esign_screen.dart';
+import 'package:whatsloan/screens/starting_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,16 +26,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: LoginScreen.id,
+      initialRoute: StartingScreen.id,
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
-        BiometricScreen.id: (context) => BiometricScreen(),
         FingerprintScreen.id : (context) => FingerprintScreen(),
         AadharLogin.id : (context) => AadharLogin(),
         CoApplicant.id : (context) => CoApplicant(),
         CustomerVerification.id :(context) => CustomerVerification(),
-        Agreement.id : (context) => Agreement(),
-        EsignScreen.id : (context) => EsignScreen(),
+        StartingScreen.id :(context) => StartingScreen()
       },
     );
   }
